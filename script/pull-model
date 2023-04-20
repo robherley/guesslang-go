@@ -1,0 +1,17 @@
+#!/bin/bash
+
+REPO=https://github.com/yoeo/guesslang.git
+
+ROOT_DIR=$(git rev-parse --show-toplevel)
+TMP_DIR="$ROOT_DIR/tmp"
+GUESSLANG_DIR="$TMP_DIR/guesslang"
+SRC_DIR="$TMP_DIR/guesslang/guesslang/data/model/"
+DST_DIR="$ROOT_DIR/pkg/guesser/model"
+
+mkdir -p "$TMP_DIR"
+rm -rf "$GUESSLANG_DIR"
+mkdir -p "$GUESSLANG_DIR"
+git clone "$REPO" "$GUESSLANG_DIR"
+rm -rf "$DST_DIR"
+mkdir -p "$DST_DIR"
+cp -r "$SRC_DIR" "$DST_DIR"
