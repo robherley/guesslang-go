@@ -17,6 +17,12 @@ On macOS, it can be installed with homebrew:
 brew install libtensorflow
 ```
 
+Alternatively, for Linux-based systems:
+
+```
+script/install-libtensorflow
+```
+
 ### Install
 
 ```

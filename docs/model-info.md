@@ -1,7 +1,7 @@
 ## Command
 
 ```
-saved_model_cli show --all --dir pkg/model
+saved_model_cli show --all --dir pkg/guesser/model
 ```
 
 ## Output
