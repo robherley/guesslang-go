@@ -11,7 +11,9 @@ if [ "$(go env GOARCH)" != "amd64" ]; then
   exit 1
 fi
 
-case "$(go env GOOS)" in
+OS=$(go env GOOS)
+
+case "$OS" in
   darwin)
     brew install libtensorflow
     ;;
@@ -24,7 +26,7 @@ case "$(go env GOOS)" in
     rm -rf "$ARCHIVE_PATH"
     ;;
   *)
-    echo "unsupported OS: $(go env GOOS)"
+    echo "unsupported OS: $OS"
     exit 1
     ;;
 esac
