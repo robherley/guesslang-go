@@ -1,0 +1,30 @@
+#!/bin/bash
+
+# This script downloads and installs libtensorflow (CPU only) for the current platform.
+# If you are on macOS, you can just use `brew install libtensorflow` instead.
+# https://www.tensorflow.org/install/lang_c
+
+set -e
+
+if [ "$(go env GOARCH)" != "amd64" ]; then
+  echo "unsupported architecture: $ARCH"
+  exit 1
+fi
+
+case "$(go env GOOS)" in
+  darwin)
+    brew install libtensorflow
+    ;;
+  linux)
+    TENSORFLOW_VERSION=2.11.0
+    ARCHIVE_PATH=$(mktemp -d)/tensorflow.tar.gz
+    curl -o "$ARCHIVE_PATH" "https://storage.googleapis.com/tensorflow/libtensorflow/libtensorflow-cpu-${OS}-x86_64-${TENSORFLOW_VERSION}.tar.gz"
+    sudo tar -xzf "$ARCHIVE_PATH" -C /usr/local
+    sudo ldconfig /usr/local/lib
+    rm -rf "$ARCHIVE_PATH"
+    ;;
+  *)
+    echo "unsupported OS: $(go env GOOS)"
+    exit 1
+    ;;
+esac
