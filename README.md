@@ -1,5 +1,8 @@
 # guesslang-go 🔍
 
+[![GoDoc](https://godoc.org/github.com/golang/gddo?status.svg)](https://pkg.go.dev/github.com/robherley/guesslang-go)
+[![Test](https://github.com/robherley/guesslang-go/actions/workflows/test.yml/badge.svg)](https://github.com/robherley/guesslang-go/actions/workflows/test.yml)
+
 Go port of [yoeo/guesslang](https://github.com/yoeo/guesslang). Detects programming language of source code using a deep learning model.
 
 ## Setup
