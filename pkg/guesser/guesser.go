@@ -19,7 +19,7 @@ type Guesser struct {
 	model *tg.Model
 }
 
-// New initializes a guesslang model
+// New initializes a guesslang model. It will write the TensorFlow SavedModel temporarily to disk, then load it.
 func New() (g *Guesser, err error) {
 	defer func() {
 		// unfortunately, the tfgo library panics instead of returning errors
@@ -28,9 +28,14 @@ func New() (g *Guesser, err error) {
 		}
 	}()
 
-	return &Guesser{
-		model: tg.LoadModel(hackyPathToModel(), []string{"serve"}, nil),
-	}, nil
+	modelPath, err := writeModelToTempDir()
+	if err != nil {
+		return nil, err
+	}
+	defer os.RemoveAll(modelPath)
+
+	model := tg.LoadModel(modelPath, []string{"serve"}, nil)
+	return &Guesser{model}, nil
 }
 
 // Guess executes the guesslang model on a code snippet, providing sorted confidences for all of the supported languages

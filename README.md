@@ -31,6 +31,15 @@ go get github.com/robherley/guesslang-go
 
 See example usage in [`examples/main.go`](/example/main.go)
 
+## Caveats
+
+To work around some of the limitations of the Go TensorFlow bindings (and the wrapper library)[^1], the [SavedModel](https://www.tensorflow.org/guide/saved_model) is embeded in the binary and
+when a [`Guesser`](https://pkg.go.dev/github.com/robherley/guesslang-go/pkg/guesser#Guesser) is initialized, it temporarily writes the model to a directory (and removes it after).
+
+So, in order to use this package, you must at least have a writeable temporary directory that aligns with Go's [`os.TempDir()`](https://pkg.go.dev/os@go1.20.3#TempDir).
+
+[^1]: https://github.com/galeone/tfgo/issues/44#issuecomment-841806254
+
 ## Acknowledgements
 
 Powered by:

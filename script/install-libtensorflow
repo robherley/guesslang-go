@@ -11,6 +11,14 @@ if [ "$(go env GOARCH)" != "amd64" ]; then
   exit 1
 fi
 
+function maybe_sudo() {
+  if [ "$(id -u)" -ne 0 ]; then
+    sudo "$@"
+  else
+    "$@"
+  fi
+}
+
 OS=$(go env GOOS)
 
 case "$OS" in
@@ -21,8 +29,8 @@ case "$OS" in
     TENSORFLOW_VERSION=2.11.0
     ARCHIVE_PATH=$(mktemp -d)/tensorflow.tar.gz
     curl -o "$ARCHIVE_PATH" "https://storage.googleapis.com/tensorflow/libtensorflow/libtensorflow-cpu-${OS}-x86_64-${TENSORFLOW_VERSION}.tar.gz"
-    sudo tar -xzf "$ARCHIVE_PATH" -C /usr/local
-    sudo ldconfig /usr/local/lib
+    maybe_sudo tar -xzf "$ARCHIVE_PATH" -C /usr/local
+    maybe_sudo ldconfig /usr/local/lib
     rm -rf "$ARCHIVE_PATH"
     ;;
   *)
