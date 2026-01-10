@@ -5,6 +5,9 @@
 
 Go port of [yoeo/guesslang](https://github.com/yoeo/guesslang). Detects programming language of source code using a deep learning model.
 
+> [!NOTE]
+> If you are looking for a library with similar functionality, try [robherley/magika-go](https://github.com/robherley/magika-go). It has a more accurate model (uses [Magika](https://securityresearch.google/magika/introduction/overview) from Google) and lighter runtime dependencies (ONNX instead of Tensorflow).
+
 ## Setup
 
 ### Dependencies
